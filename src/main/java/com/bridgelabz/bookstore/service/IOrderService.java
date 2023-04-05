@@ -8,7 +8,7 @@ import com.bridgelabz.bookstore.model.UserModel;
 
 public interface IOrderService {
 
-	//OrderModel insertOrder(OrderDto orderDto);
+	OrderModel insertOrder(OrderDto orderDto);
 	OrderModel insertOrder(String token);
 
 	List<OrderModel> getAllOrders();

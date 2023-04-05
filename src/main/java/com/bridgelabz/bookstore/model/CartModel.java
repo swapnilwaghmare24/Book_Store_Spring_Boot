@@ -50,4 +50,8 @@ public class CartModel {
         //this.user = user;
     }
 
+	public CartModel(int quantity2, BookModel bookModel, int userId) {
+		// TODO Auto-generated constructor stub
+	}
+
 }

@@ -30,6 +30,7 @@ public class OrderModel {
 	private BookModel book;
 	private boolean cancel;
 	private double totalPrice;
+	private int flag;
 	
 	public OrderModel(int id, double price,int quantity, String address,UserModel user, BookModel book,  Boolean cancel) {
         this.orderId=id;

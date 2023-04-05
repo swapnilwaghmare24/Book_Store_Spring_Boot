@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.bookstore.dto.LoginDto;
@@ -22,7 +23,7 @@ import com.bridgelabz.bookstore.model.UserModel;
 import com.bridgelabz.bookstore.service.IUserService;
 
 @CrossOrigin(allowedHeaders = "*", origins = "*")
-@RequestMapping("/bridgelabz")
+@RequestMapping("/user")
 @RestController
 public class UserController {
 	
@@ -124,17 +125,39 @@ public class UserController {
 	}
 	
 	//Api to login
-	@PostMapping("/login")
+	/*@PostMapping("/login")
 	String login(@RequestBody LoginDto loginDto)
 	{
 		String token=service.login(loginDto);
 		return token;
 		
+	}*/
+	
+	@PostMapping("/adminlogin")
+	String AdminLogin(@RequestBody LoginDto loginDto)
+	{
+		String token=service.adminLogin(loginDto);
+		return token;
+		
 	}
 	
 	
-	
-	
+	 @GetMapping("/login")
+	    public ResponseEntity<ResponseDto> userLogin(@RequestParam String email, @RequestParam String password) {
+	       
+	        
+	        String token=service.login(email,password);
+			
+			ResponseDto responseDto=new ResponseDto("user logged in and token is", token);
+			return new ResponseEntity<>(responseDto,HttpStatus.OK);
+	    }
+
+	 @GetMapping("/getIdByToken/{token}")
+	 public ResponseEntity<ResponseDto> getUserById(@PathVariable String token) {
+	        return new ResponseEntity<ResponseDto>( new
+	                ResponseDto("Get UserId By Token",
+	                service.getIdByToken(token)), HttpStatus.OK);
+	    }
 	
 
 }

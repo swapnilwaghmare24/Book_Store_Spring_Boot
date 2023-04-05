@@ -31,6 +31,12 @@ public interface IUserService {
 
 	String login(LoginDto loginDto);
 
+	String adminLogin(LoginDto loginDto);
+
+	String login(String email, String password);
+
+	Object getIdByToken(String token);
+
 	
 
 	

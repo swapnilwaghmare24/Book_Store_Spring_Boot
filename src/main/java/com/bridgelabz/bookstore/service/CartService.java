@@ -132,6 +132,26 @@ public class CartService implements ICartService {
 		
 		return null;
 	}
+
+
+
+	@Override
+	public CartModel addToCart(CartDto cartDto) {
+		Optional<BookModel> book = bookRepository.findById(cartDto.getBookId());
+		Optional<UserModel> user= userRepository.findById(cartDto.getUserId());
+		
+			CartModel newCart = new CartModel(cartDto.getQuantity(), book.get(), user.get());
+			cartRepository.save(newCart);
+			return newCart;
+	}
+
+
+
+	@Override
+	public List<CartModel> getAllCart() {
+		List<CartModel> cartModels=cartRepository.findAll();
+		return cartModels;
+	}
 	
 	
 

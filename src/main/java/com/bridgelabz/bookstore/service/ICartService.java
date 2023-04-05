@@ -23,4 +23,10 @@ public interface ICartService {
 
 	CartModel getBooksById(int userid);
 
+	CartModel addToCart(CartDto cartDto);
+
+	List<CartModel> getAllCart();
+
+	
+
 }

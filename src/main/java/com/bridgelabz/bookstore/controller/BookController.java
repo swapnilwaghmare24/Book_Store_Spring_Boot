@@ -59,7 +59,7 @@ public class BookController {
 	@GetMapping("/bookname/{bname}")
 	ResponseEntity<ResponseDto> getBookByName(@PathVariable String bname)
 	{
-		BookModel bookModel=service.findBookByName(bname);
+		List<BookModel> bookModel=service.findBookByName(bname);
 		ResponseDto responseDto=new ResponseDto("Required book is :",bookModel);
 		return new ResponseEntity<>(responseDto,HttpStatus.OK);
 		

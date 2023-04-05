@@ -22,6 +22,7 @@ import com.bridgelabz.bookstore.repository.UserRepository;
 import com.bridgelabz.bookstore.util.EmailSenderService;
 import com.bridgelabz.bookstore.util.TokenUtil;
 
+
 import net.bytebuddy.implementation.bytecode.Throw;
 
 @Service
@@ -40,7 +41,7 @@ public class OrderService implements IOrderService {
 	CartRepository cartRepository;
 
 	@Override
-	/*public OrderModel insertOrder(OrderDto orderDto) {
+	public OrderModel insertOrder(OrderDto orderDto) {
 		Optional<UserModel> user=userRepository.findById(orderDto.getUserId());
 		Optional<BookModel> book=bookRepository.findById(orderDto.getBookId());
 		
@@ -48,12 +49,12 @@ public class OrderService implements IOrderService {
 		{
 			OrderModel orderModel=new OrderModel(book.get().getPrice(),orderDto.getQuantity(),orderDto.getAddress(),user.get(),book.get(),orderDto.isCancel());
 			orderRepository.save(orderModel);
-			mail.sendEmail("iamswapnilengg@gmail.com", "order placed", user.get().getFirstName() +" placed order for " +book.get().getBookName()+ " on " +orderModel.getDate());
+			//mail.sendEmail("iamswapnilengg@gmail.com", "order placed", user.get().getFirstName() +" placed order for " +book.get().getBookName()+ " on " +orderModel.getDate());
 			return orderModel;
 		}
 		
 		throw new BookStoreException("User or book not present") ;
-	}*/
+	}
 	
 	public OrderModel insertOrder(String token) {
 		
@@ -75,6 +76,7 @@ public class OrderService implements IOrderService {
         		orderModel.setTotalPrice(cartModel.get(i).getQuantity()*cartModel.get(i).getBook().getPrice());
         		orderModel.setQuantity(cartModel.get(i).getQuantity());
         		orderModel.setUser(cartModel.get(i).getUser());
+        		
 				orderRepository.save(orderModel);
 				model=orderModel;
         		cartRepository.deleteById(cartModel.get(i).getCartId());
@@ -89,6 +91,7 @@ public class OrderService implements IOrderService {
 
 	@Override
 	public List<OrderModel> getAllOrders() {
+		
 		LocalDate currentDate=LocalDate.now();
 		List<OrderModel> orderModels= orderRepository.findAll();
 		List<OrderModel> oModels = new ArrayList<>();
@@ -98,10 +101,29 @@ public class OrderService implements IOrderService {
 			
 			long differnce=ChronoUnit.DAYS.between(date, currentDate);
 					
-			if(!omdModel.isCancel()&&(differnce>=1 && differnce<=3)) {
-			
+			if(!omdModel.isCancel()&&differnce<=1) {
+				
+				
+				omdModel.setFlag(1);
 				oModels.add(omdModel);
 			}
+			else if(!omdModel.isCancel()&&differnce>1 && differnce<=3) {
+			
+				omdModel.setFlag(2);;
+				oModels.add(omdModel);
+			}
+			
+			else if(!omdModel.isCancel()&&differnce>3)
+			{
+				omdModel.setFlag(3);;
+				oModels.add(omdModel);
+			}
+			
+			else
+			{
+				oModels.add(omdModel);
+			}
+			
 			
 			
 		}

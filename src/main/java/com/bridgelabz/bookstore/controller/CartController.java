@@ -84,7 +84,7 @@ public class CartController {
 	}
 
 	//Api to find cart by cart id and modify quantity  
-	@PutMapping("/cartid/{id}/qty/{qty}")
+	@GetMapping("/cartid/{id}/qty/{qty}")
 	ResponseEntity<ResponseDto> updateQuantity(@PathVariable int id, @PathVariable int qty) {
 		String cartModel = service.updateQuantity(id, qty);
 		ResponseDto responseDto = new ResponseDto("Update quantity status", cartModel);
@@ -100,6 +100,21 @@ public class CartController {
 		return new ResponseEntity<>(responseDTO, HttpStatus.OK);
 	}
 
+	@PostMapping("/addtocart")
+	public ResponseEntity<ResponseDto> addToCard(@RequestBody CartDto cartDto) {
+
+		CartModel newCart = service.addToCart(cartDto);
+		ResponseDto responseDTO = new ResponseDto("book added successfully !", newCart);
+		return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+	}
+
+	@GetMapping("/getall")
+	ResponseEntity<ResponseDto> getAllCart() {
+		List<CartModel> cart = service.getAllCart();
+		ResponseDto responseDto = new ResponseDto("All carts are ", cart);
+		return new ResponseEntity<>(responseDto, HttpStatus.OK);
+	}
+	
 	
 
 }

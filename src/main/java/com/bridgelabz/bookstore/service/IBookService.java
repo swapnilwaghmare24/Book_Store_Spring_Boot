@@ -14,7 +14,7 @@ public interface IBookService {
 
 	BookModel getBookById(int id);
 
-	BookModel findBookByName(String bname);
+	List<BookModel> findBookByName(String bname);
 
 	BookModel updateBookById(int id, BookDto bookDto);
 

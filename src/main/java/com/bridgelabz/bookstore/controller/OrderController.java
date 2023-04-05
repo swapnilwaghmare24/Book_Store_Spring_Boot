@@ -30,14 +30,14 @@ public class OrderController {
 	
 	
 	//Api to insert order
-	/*@PostMapping("/insertorder")
+	@PostMapping("/insertorder")
 	ResponseEntity<ResponseDto> insertOrder(@RequestBody OrderDto orderDto)
 	{
 		OrderModel orderModel=service.insertOrder(orderDto);
 		ResponseDto responseDto=new ResponseDto("Order placed successfully ",orderModel);
 		return new ResponseEntity<>(responseDto, HttpStatus.OK);
 		
-	}*/
+	}
 	
 	@PostMapping("/add/{token}")
 	ResponseEntity<ResponseDto> insertOrder(@PathVariable String token )

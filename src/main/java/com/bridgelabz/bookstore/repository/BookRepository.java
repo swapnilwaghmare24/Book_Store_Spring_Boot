@@ -9,13 +9,19 @@ import com.bridgelabz.bookstore.model.BookModel;
 
 public interface BookRepository extends JpaRepository<BookModel, Integer> {
 
-	 @Query(value = "select * from book_model where book_Name LIKE %:bname%",nativeQuery = true)
+	
+	//List<Book> findByBookNameContaining(String bookName);
+	@Query(value = "select * from book_model where book_Name LIKE %:bname%",nativeQuery = true)
 	BookModel findBookByName(String bname);
+	
 
-	@Query(value = "select * from book_model order by book_Name", nativeQuery = true)
+	@Query(value = "select * from book_model order by price", nativeQuery = true)
 	List<BookModel> booksInAsc();
 
-	@Query(value = "select * from book_model order by book_Name desc", nativeQuery = true)
+	@Query(value = "select * from book_model order by price desc", nativeQuery = true)
 	List<BookModel> booksInDesc();
+
+
+	List<BookModel> findByBookNameContaining(String bname);
 
 }

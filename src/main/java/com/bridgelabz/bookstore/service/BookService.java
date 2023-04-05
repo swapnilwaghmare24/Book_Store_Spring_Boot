@@ -41,9 +41,8 @@ public class BookService implements IBookService {
 	}
 
 	@Override
-	public BookModel findBookByName(String bname) {
-		return repo.findBookByName(bname);
-	}
+	public List<BookModel> findBookByName(String bname) {
+		return repo.findByBookNameContaining(bname);}
 
 	@Override
 	public BookModel updateBookById(int id, BookDto bookDto) {

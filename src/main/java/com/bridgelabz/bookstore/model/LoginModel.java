@@ -27,4 +27,11 @@ public LoginModel(LoginDto registerDto) {
 	this.password=registerDto.getPassword();
 		
 	}
+
+public LoginModel(String email, String password) {
+	
+	this.email=email;
+	this.password=password;
+		
+	}
 }

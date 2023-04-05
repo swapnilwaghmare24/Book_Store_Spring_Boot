@@ -142,6 +142,38 @@ public class UserService implements IUserService{
 		
 		return null;
 	}
+
+	@Override
+	public String adminLogin(LoginDto loginDto) {
+		UserModel userModels=repo.findByEmail(loginDto.getEmail());
+		String adminEmail="admin@123";
+		String adminPassword="admin@123";
+		if(loginDto.getEmail().equals(adminEmail)&& loginDto.getPassword().equals(adminPassword))
+		{
+			String token=tokenUtil.createToken(userModels.getUserId());
+			return token;
+		}
+		return null;
+	}
+
+	@Override
+	public String login(String email, String password) {
+		UserModel userModels=repo.findByEmail(email);
+		
+		if(password.equals(userModels.getPassword()))
+		{
+			String token=tokenUtil.createToken(userModels.getUserId());
+			return token;
+		}
+	
+	return null;
+	}
+
+	@Override
+	public Object getIdByToken(String token) {
+		
+		return tokenUtil.decodeToken(token);
+	}
 	  
 	
 
